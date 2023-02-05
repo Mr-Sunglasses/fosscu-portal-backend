@@ -1,0 +1,26 @@
+{% extends "index.html" %} {% block title %} Home {% endblock %} {% block
+content %}
+<a href="{{url_for('info')}}"><h2>About Puppies</h2></a>
+<h2>Here is the image of our Puppy</h2>
+<img
+  src="{{url_for('static', filename='img/cyberpunk.jpg')}}"
+  alt="Puppy with Human"
+  width="300"
+  height="220"
+/>
+<table border="1">
+  <tr>
+    <td>Puppy Name</td>
+    <td>Puppy Bread</td>
+  </tr>
+  {% for keys,values in puppies.items() %}
+  <tr>
+    <td>{{keys}}</td>
+    <td>{{values}}</td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{{url_for('signup_form')}}">Add Your Puppy to Our Database :)</a>
+<br />
+<a href="{{url_for('gen_pass')}}">Generate a Password For Your Puppy :)</a>
+{% endblock %}

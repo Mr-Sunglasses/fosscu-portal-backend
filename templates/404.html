@@ -1,0 +1,12 @@
+{% extends "index.html" %} {% block title %} Error 404 {% endblock %} {% block
+content %}
+<div>
+  <center>
+    <img
+      src="{{url_for('static', filename='img/gif-404.gif')}}"
+      alt="404 Error Message"
+    />
+  </center>
+</div>
+<a href="{{url_for('index')}}">You are Lost Go back to Home</a>
+{% endblock %}

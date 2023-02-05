@@ -1,0 +1,14 @@
+{% extends "index.html" %} {% block title %} Generate Password for Puppy {%
+endblock %} {% block content %}
+<div>
+  <h1>Rules for the Password</h1>
+  <p>Must Contain a Capital Letter</p>
+  <p>Must Contain a Number</p>
+  <p>Must Contain a Special Character</p>
+</div>
+<form action="{{url_for('verify_pass')}}">
+  <label for="get_pass">Enter Password for Dog: </label>
+  <input type="password" name="get_pass" />
+  <input type="submit" value="Submit Password" />
+</form>
+{% endblock %}

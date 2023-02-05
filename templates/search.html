@@ -1,0 +1,9 @@
+{% extends "index.html" %} {% block title %} Search Puppies {% endblock %} {%
+block content %} {% for name in puppies.keys() %} {% if name == search_name %}
+
+<h1>The name {{search_name}} found in out Puppies Database</h1>
+{% endif %} {% endfor %}
+<div>
+  <p>If you are seeing nothing above this so it is not found</p>
+</div>
+{% endblock %}
