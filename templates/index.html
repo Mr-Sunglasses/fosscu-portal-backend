@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>Welcome to the Puppy Survey</p>
+
+    <form method="POST">
+      {{ form.hidden_tag() }} {{ form.Name.label }} {{ form.Name() }} <br />
+      {{ form.Breed.label }} {{ form.Breed() }}
+      <br />
+      {{ form.neatured.label }} {{ form.neatured() }}
+      <br />
+      {{ form.mood.label }} {{ form.mood() }}
+      <br />
+      {{ form.food_choice.label }} {{ form.food_choice() }}
+      <br />
+      {{ form.feedback.label }} {{ form.feedback() }} <br />
+      {{form.Submit() }}
+    </form>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% for message in get_flashed_messages() %} {{message}} {% endfor %}
+    <h1>Thanks for Filling Up the Form</h1>
+    <ul>
+      <li>Name {{session['name']}}</li>
+      <li>Breed {{session['breed']}}</li>
+      <li>Neatured {{session['neatured']}}</li>
+      <li>Mood {{session['mood']}}</li>
+      <li>Food Choice {{session['food_choice']}}</li>
+      <li>Feeback {{session['feedback']}}</li>
+    </ul>
+  </body>
+</html>
