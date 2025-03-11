@@ -4,38 +4,235 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Song Search</title>
+  <title>FOSSCU Member Directory</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #3273dc, #209cee);
+      color: white;
+    }
+    .navbar {
+      background-color: transparent;
+    }
+    .navbar-item {
+      color: white;
+    }
+    .navbar-brand img {
+      max-height: 2.5rem;
+    }
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .search-icon {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      color: #888;
+    }
+    .search-input {
+      padding-left: 40px !important;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .xp-tag {
+      font-weight: bold;
+    }
+    .table-container {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .table {
+      border-radius: 8px;
+    }
+    .table th {
+      background-color: #f5f5f5;
+    }
+    .loading-indicator {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top-color: #3273dc;
+      animation: spin 1s ease-in-out infinite;
+      margin-left: 10px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
+
 <body>
-  <section class="section">
-    <div class="columns">
-      <div class="column is-one-third is-offset-one-third">
-        <input type="text" class="input" placeholder="Search" name="q" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target="#results">
+  <!-- Hero Section with Navbar -->
+  <section class="hero is-medium">
+    <div class="hero-head">
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fas fa-code-branch"></i>
+                </span>
+                <span class="has-text-weight-bold is-size-4">FOSSCU</span>
+              </span>
+            </a>
+          </div>
+          <div class="navbar-menu">
+            <div class="navbar-end">
+              <a class="navbar-item">
+                <span class="icon">
+                  <i class="fas fa-home"></i>
+                </span>
+                <span>Home</span>
+              </a>
+              <a class="navbar-item">
+                <span class="icon">
+                  <i class="fas fa-users"></i>
+                </span>
+                <span>About</span>
+              </a>
+              <a class="navbar-item">
+                <span class="icon">
+                  <i class="fas fa-code"></i>
+                </span>
+                <span>Projects</span>
+              </a>
+              <a class="navbar-item">
+                <span class="icon">
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <span>Contact</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title is-1">
+          FOSSCU Member Directory
+        </h1>
+        <h2 class="subtitle is-4">
+          Search and explore our community members
+        </h2>
+        
+        <!-- Search Bar -->
+        <div class="search-container mt-5">
+          <span class="search-icon">
+            <i class="fas fa-search"></i>
+          </span>
+          <input 
+            type="text" 
+            class="input is-medium search-input" 
+            placeholder="Search members by name or Discord username..." 
+            name="q" 
+            hx-get="/search/" 
+            hx-trigger="keyup changed delay:500ms" 
+            hx-target="#results"
+            hx-indicator="#search-indicator">
+          <span id="search-indicator" class="loading-indicator htmx-indicator"></span>
+        </div>
       </div>
     </div>
-    <table class="table is-fullwidth">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Discord Username</th>
-          <th>XP</th>
-        </tr>
-      </thead>
-      <tbody id="results">
-
-        {% for d in data %}
-        <tr>
-            <td>{{ d["Name"] }}</td>
-            <td>{{ d["Discord Username"] }}</td>
-            <td>{{ d["XP"] }}</td>
-        </tr>
-        {% endfor %}
-
-      </tbody>
-    </table>
   </section>
-</body>
 
+  <!-- Member Table Section -->
+  <section class="section">
+    <div class="container">
+      <h3 class="title is-4 mb-4">
+        <span class="icon-text">
+          <span class="icon">
+            <i class="fas fa-list"></i>
+          </span>
+          <span>Member List</span>
+        </span>
+      </h3>
+      
+      <div class="table-container">
+        <table class="table is-fullwidth is-hoverable">
+          <thead>
+            <tr>
+              <th><span class="icon-text">
+                <span class="icon">
+                  <i class="fas fa-user"></i>
+                </span>
+                <span>Name</span>
+              </span></th>
+              <th><span class="icon-text">
+                <span class="icon">
+                  <i class="fab fa-discord"></i>
+                </span>
+                <span>Discord Username</span>
+              </span></th>
+              <th><span class="icon-text">
+                <span class="icon">
+                  <i class="fas fa-trophy"></i>
+                </span>
+                <span>XP</span>
+              </span></th>
+            </tr>
+          </thead>
+          <tbody id="results">
+            {% for d in data %}
+            <tr>
+              <td>
+                <div class="is-flex is-align-items-center">
+                  <span class="icon mr-2">
+                    <i class="fas fa-user-circle"></i>
+                  </span>
+                  <span>{{ d["Name"] }}</span>
+                </div>
+              </td>
+              <td>
+                <div class="is-flex is-align-items-center">
+                  <span class="icon mr-2 has-text-info">
+                    <i class="fab fa-discord"></i>
+                  </span>
+                  <span>{{ d["Discord Username"] }}</span>
+                </div>
+              </td>
+              <td>
+                {% if d["XP"] > 1000 %}
+                  <span class="tag is-success xp-tag">{{ d["XP"] }}</span>
+                {% elif d["XP"] > 500 %}
+                  <span class="tag is-primary xp-tag">{{ d["XP"] }}</span>
+                {% elif d["XP"] > 100 %}
+                  <span class="tag is-info xp-tag">{{ d["XP"] }}</span>
+                {% else %}
+                  <span class="tag is-light xp-tag">{{ d["XP"] }}</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>FOSSCU Portal</strong> by <a href="https://github.com/fosscu">FOSSCU Team</a>. The source code is available on
+        <a href="https://github.com/fosscu/fosscu-portal-backend">GitHub</a>.
+      </p>
+    </div>
+  </footer>
+</body>
 </html>

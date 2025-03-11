@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error - FOSSCU Portal</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #3273dc, #209cee);
+      color: white;
+    }
+    .error-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .error-icon {
+      font-size: 4rem;
+      color: #ff3860;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero is-medium">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title is-1">
+          FOSSCU Portal
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="error-container has-text-centered">
+        <div class="error-icon">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h2 class="title is-4">Something went wrong</h2>
+        <p class="subtitle is-6 mb-4">We encountered an error while processing your request</p>
+        
+        <div class="notification is-danger is-light my-4">
+          {{ error }}
+        </div>
+        
+        <div class="mt-5">
+          <a href="/" class="button is-link">
+            <span class="icon">
+              <i class="fas fa-home"></i>
+            </span>
+            <span>Go Back Home</span>
+          </a>
+        </div>
+        
+        <div class="mt-4">
+          <p class="has-text-grey is-size-7">
+            If the problem persists, please contact the FOSSCU team for assistance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

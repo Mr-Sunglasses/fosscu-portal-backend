@@ -1,5 +1,44 @@
-<tr>
-    <td>{{ result["Name"] }}</td>
-    <td>{{ result["Discord Username"] }}</td>
-    <td>{{ result["XP"] }}</td>
-</tr>
+{% if results|length > 0 %}
+  {% for result in results %}
+  <tr>
+    <td>
+      <div class="is-flex is-align-items-center">
+        <span class="icon mr-2">
+          <i class="fas fa-user-circle"></i>
+        </span>
+        <span>{{ result["Name"] }}</span>
+      </div>
+    </td>
+    <td>
+      <div class="is-flex is-align-items-center">
+        <span class="icon mr-2 has-text-info">
+          <i class="fab fa-discord"></i>
+        </span>
+        <span>{{ result["Discord Username"] }}</span>
+      </div>
+    </td>
+    <td>
+      {% if result["XP"] > 1000 %}
+        <span class="tag is-success xp-tag">{{ result["XP"] }}</span>
+      {% elif result["XP"] > 500 %}
+        <span class="tag is-primary xp-tag">{{ result["XP"] }}</span>
+      {% elif result["XP"] > 100 %}
+        <span class="tag is-info xp-tag">{{ result["XP"] }}</span>
+      {% else %}
+        <span class="tag is-light xp-tag">{{ result["XP"] }}</span>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+{% else %}
+  <tr>
+    <td colspan="3" class="has-text-centered">
+      <div class="py-5">
+        <span class="icon has-text-grey mb-3">
+          <i class="fas fa-search fa-2x"></i>
+        </span>
+        <p class="has-text-grey">No members found matching your search criteria</p>
+      </div>
+    </td>
+  </tr>
+{% endif %}

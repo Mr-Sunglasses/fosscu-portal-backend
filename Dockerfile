@@ -1,21 +1,28 @@
-# Dockerfile
+# Base image
+FROM python:3.11.1-slim
 
-# pull the official docker image
-FROM python:3.11.1-slim AS builder
+# Set working directory
+WORKDIR /app
 
-# install PDM
+# Install PDM
 RUN pip install -U pip setuptools wheel
 RUN pip install pdm
 
-# copy files
-COPY pyproject.toml pdm.lock README.md /project/
-COPY data/ project/data
-COPY src/ /project/src
+# Copy PDM project files
+COPY pyproject.toml pdm.lock README.md ./
 
+# Copy application code
+COPY src/ ./src/
 
-WORKDIR /project
+# Install dependencies using PDM
+RUN pdm install --production
 
-RUN pdm install
+# Set environment variables
+RUN export PYTHONPATH=${PYTHONPATH}:$(pdm info --python-path)
+ENV PORT=8080
 
-EXPOSE 8080
+# Expose port
+EXPOSE ${PORT}
+
+# Command to run the application
 CMD ["pdm", "run", "start"]
